@@ -195,12 +195,20 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
                 { key: 'respeito', label: 'Respeito' },
                 { key: 'carater', label: 'Caráter' },
                 { key: 'confianca', label: 'Confiança' },
-              ].map((categoria) => {
-                const media = calcularMediaCategoria(categoria.key as any);
-                const porcentagem = (parseFloat(media) / 5) * 100;
+  .map((categoria) => {
+    // Força categoria.key a ser sempre string
+    const keyStr = String(categoria.key);
 
-                return (
-                  <div key={categoria.key}>
+    const media = calcularMediaCategoria(keyStr as any);
+
+    const porcentagem = (parseFloat(String(media)) / 5) * 100;
+
+    return (
+        <div key={keyStr}>
+            ...
+        </div>
+    );
+});
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-sm text-gray-300">{categoria.label}</span>
                       <span className="text-sm font-semibold text-white">
