@@ -177,22 +177,32 @@ export default function AvaliarPage() {
                     {categoria.label}
                   </label>
                   <div className="flex items-center gap-2">
-                    {[1, 2, 3, 4, 5].map((valor) => (
-                      <button
-                        key={valor}
-                        type="button"
-                        onClick={() => handleRating(categoria.key, valor)}
-                        className="transition-transform hover:scale-110"
-                      >
-                        <Star
-                          className={`w-8 h-8 ${
-                            formData[categoria.key as keyof typeof formData] >= valor
-                              ? 'text-[#D4AF37] fill-[#D4AF37]'
-                              : 'text-gray-600'
-                          }`}
-                        />
-                      </button>
-                    ))}
+                    {[1, 2, 3, 4, 5].map((valor) => {
+                      const categoriaKey = categoria.key as keyof typeof formData;
+                      const rawValue = formData[categoriaKey];
+                      const current =
+                        typeof rawValue === 'number'
+                          ? rawValue
+                          : Number(rawValue || 0);
+                      const isActive = current >= valor;
+
+                      return (
+                        <button
+                          key={valor}
+                          type="button"
+                          onClick={() => handleRating(categoria.key, valor)}
+                          className="transition-transform hover:scale-110"
+                        >
+                          <Star
+                            className={`w-8 h-8 ${
+                              isActive
+                                ? 'text-[#D4AF37] fill-[#D4AF37]'
+                                : 'text-gray-600'
+                            }`}
+                          />
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               ))}
