@@ -196,8 +196,9 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
                 { key: 'carater', label: 'Caráter' },
                 { key: 'confianca', label: 'Confiança' },
               ].map((categoria) => {
-                const media = calcularMediaCategoria(categoria.key as any);
-                const porcentagem = (parseFloat(media) / 5) * 100;
+                const mediaRaw = calcularMediaCategoria(categoria.key as any);
+                const media = Number(mediaRaw ?? 0);
+                const porcentagem = (media / 5) * 100;
 
                 return (
                   <div key={categoria.key}>

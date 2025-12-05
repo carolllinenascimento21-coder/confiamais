@@ -180,10 +180,7 @@ export default function AvaliarPage() {
                     {[1, 2, 3, 4, 5].map((valor) => {
                       const categoriaKey = categoria.key as keyof typeof formData;
                       const rawValue = formData[categoriaKey];
-                      const current =
-                        typeof rawValue === 'number'
-                          ? rawValue
-                          : Number(rawValue || 0);
+                      const current = typeof rawValue === "number" ? rawValue : Number(rawValue || 0);
                       const isActive = current >= valor;
 
                       return (
