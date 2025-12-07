@@ -13,6 +13,7 @@ export default function TermosGuard({ children }: { children: React.ReactNode })
     // Páginas que não precisam de verificação
     const paginasLivres = [
       '/',
+      '/splash',
       '/onboarding',
       '/aceitar-termos',
       '/perfil/termos',
@@ -26,26 +27,29 @@ export default function TermosGuard({ children }: { children: React.ReactNode })
       return;
     }
 
-    // Verificar se termos foram aceitos
-    const aceiteStr = localStorage.getItem('confia_termos_aceite');
-    
-    if (!aceiteStr) {
-      // Não aceitou ainda - redireciona
-      router.push('/aceitar-termos');
-      return;
-    }
-
-    try {
-      const aceite = JSON.parse(aceiteStr);
+    // Verificar se termos foram aceitos (apenas no cliente)
+    if (typeof window !== 'undefined') {
+      const aceiteStr = localStorage.getItem('confia_termos_aceite');
       
-      if (aceite.termosAceitos && aceite.privacidadeAceita) {
-        setTermosAceitos(true);
-      } else {
+      if (!aceiteStr) {
+        // Não aceitou ainda - redireciona
+        router.push('/aceitar-termos');
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const aceite = JSON.parse(aceiteStr);
+        
+        if (aceite.termosAceitos && aceite.privacidadeAceita) {
+          setTermosAceitos(true);
+        } else {
+          router.push('/aceitar-termos');
+        }
+      } catch (error) {
+        // Erro ao parsear - redireciona
         router.push('/aceitar-termos');
       }
-    } catch (error) {
-      // Erro ao parsear - redireciona
-      router.push('/aceitar-termos');
     }
 
     setLoading(false);
