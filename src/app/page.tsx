@@ -4,12 +4,14 @@ export default function Home() {
   return (
     <main style={{
       display: "flex",
+      flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
       height: "100vh",
-      fontSize: "20px"
+      gap: "1rem"
     }}>
-      Página inicial carregada com sucesso.
+      <h1>Confia+</h1>
+      <p>App carregado com sucesso.</p>
     </main>
   );
 }
