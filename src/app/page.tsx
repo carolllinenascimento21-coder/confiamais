@@ -1,9 +1,15 @@
 "use client";
 
-export default function HomePage() {
+export default function Home() {
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <h1>Página inicial do Confia+</h1>
-    </div>
+    <main style={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      height: "100vh",
+      fontSize: "20px"
+    }}>
+      Página inicial carregada com sucesso.
+    </main>
   );
 }
